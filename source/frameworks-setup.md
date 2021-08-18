@@ -1,0 +1,1 @@
+- Vue : style for compoments names like <Button>
