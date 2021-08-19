@@ -33,4 +33,6 @@ code-formatting
 documentation
 version-control
 build-lifecycle
+functional-thinking
+dependencies-management
 ```
