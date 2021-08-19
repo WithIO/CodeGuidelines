@@ -35,4 +35,5 @@ version-control
 build-lifecycle
 functional-thinking
 dependencies-management
+approved-stacks
 ```
