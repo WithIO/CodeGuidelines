@@ -24,7 +24,10 @@ That said, this document is hosted in Git. If you feel like the rules should
 change don't hesitate to talk about it and to submit a pull request!
 ```
 
-## Navigation
+## Mandatory content
+
+This content contains the explicit rules of what needs to be done within the
+WITH team and must be read and known by all.
 
 ```{toctree}
 :maxdepth: 2
@@ -36,4 +39,16 @@ build-lifecycle
 functional-thinking
 dependencies-management
 approved-stacks
+```
+
+## Bonus material
+
+This track of pages contains articles that are interesting for your reading and
+probably worthy of your consideration, but not required as part of the
+onboarding process.
+
+```{toctree}
+:maxdepth: 2
+
+bugs
 ```
