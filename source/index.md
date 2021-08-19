@@ -50,5 +50,6 @@ onboarding process.
 ```{toctree}
 :maxdepth: 2
 
+nasa10
 bugs
 ```
