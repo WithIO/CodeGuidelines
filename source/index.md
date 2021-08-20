@@ -39,6 +39,7 @@ build-lifecycle
 functional-thinking
 dependencies-management
 approved-stacks
+testing
 ```
 
 ## Bonus material
