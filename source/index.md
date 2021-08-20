@@ -40,6 +40,7 @@ functional-thinking
 dependencies-management
 approved-stacks
 testing
+optimization
 ```
 
 ## Bonus material
