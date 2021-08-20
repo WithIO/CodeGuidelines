@@ -1,14 +1,12 @@
-WITH's Coding Guidelines
-========================
+# WITH's Coding Guidelines
 
 ## Introduction
 
-As you are part of WITH, you are not an individual developer but rather you
-take your place in a team that works together in numerous ways. Because no one
-is perfect, no project is ever finished and no requirement is set in stone, we
-ought to work in a way that acknowledges the reality of our mission. The
-present document explores the techniques to get as close as possible to this
-goal.
+As you are part of WITH, you are not an individual developer but rather you take
+your place in a team that works together in numerous ways. Because no one is
+perfect, no project is ever finished and no requirement is set in stone, we
+ought to work in a way that acknowledges the reality of our mission. The present
+document explores the techniques to get as close as possible to this goal.
 
 ```{warning}
 This document will hurt your feelings. But the main rule is: no exceptions.

@@ -1,1 +1,1 @@
-- Vue : style for compoments names like <Button>
+-   Vue : style for compoments names like <Button>
