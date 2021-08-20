@@ -239,6 +239,23 @@ meta#42
 
 ## What can be commited or not
 
+Ideally, we want to make the projects as simple as possible to install and to
+transfer. However, not everything should end up in Git.
+
+-   If it's a secret then it has no place in Git. Or more precisely, if it's
+    more secret than the source code. Because the source code we write is often
+    a secret in itself.
+-   If it's too heavy (more than a few Mo) then you might want to consider other
+    options. Should it go to a S3 bucket by example?
+-   Anything that is specific to an instance of the code should also be avoided.
+    Typically, don't commit your `.env`, don't commit your IDE configuration,
+    don't commit a DB dump, etc.
+
+```{note}
+What you should commit however is lock files from package managers:
+`requirements.txt`, `package-lock.json` and so on **have to be** in Git.
+```
+
 ## GitLab structure
 
 We use Gitlab for Git management (at least for now). Here are the conventions
