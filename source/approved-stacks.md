@@ -157,6 +157,15 @@ Pip _will be_ replaced by Poetry when we replace Felix, but now is not the time.
 Some operations are a bit complicated with Pip alone, we use `pip-tools` to help
 managing pinning versions and upgrading what we need.
 
+### SASS (most importantly SCSS)
+
+The go-to CSS pre-processor that we use is SASS. Because everyone uses it and it
+makes very little difference with its competitors (LESS, Stylus, etc.) at the
+level that we're using it.
+
+Please however use SCSS and not SASS syntax, as Prettier can handle the former
+but not the latter.
+
 ## Approbation procedure
 
 Any tool you want to use can be considered. Even if it's not in the pre-approved
@@ -272,3 +281,8 @@ Tailwind has several issues:
     broad adoption
 
 For those reasons, let's stay away from Tailwind.
+
+### Bower
+
+Well, Bower was nice before all was in NPM and compiled with Webpack but now
+it's just some kind of crazyness.
