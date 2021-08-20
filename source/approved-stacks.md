@@ -166,6 +166,83 @@ level that we're using it.
 Please however use SCSS and not SASS syntax, as Prettier can handle the former
 but not the latter.
 
+### Webpack
+
+To build JS, CSS, minify and other front-end shenanigans, please use Webpack.
+It's a bit complicated to configure but:
+
+-   For Wagtail projects you can find examples in previous projects
+-   For Nuxt projects, Nuxt handles the Webpack configuration on its own
+
+## Recommended stacks
+
+Let's talk about the recommended combinations of stacks for different kinds of
+projects.
+
+### Content website
+
+For a purely content-oriented website, let's use a regular Wagtail stack:
+
+-   Django for the base
+-   Wagtail for the CMS
+-   Webpack to compile static assets
+-   SCSS for the style pre-processor
+-   Vue to handle small dynamic behaviors
+
+### Advanced content website
+
+If your website needs to have content but also advanced interactive parts that
+will require a lot of JavaScript, it is best to give up the vanilla Wagtail
+implementation and to make it headless. This way you can implement most of the
+front-end with Vue directly.
+
+-   Django for the base
+-   Wagtail for the CMS
+-   DRF for the API layer
+-   Nuxt and Vue to handle front-end code
+-   SCSS for the style pre-processor
+
+Making Wagtail headless is not a standardized procedure yet. You can have a look
+at what was done in TFS and ActiveSeed. The base idea is:
+
+-   Generate HTML code using Django templates (because it's simpler to generate
+    the content with a direct access to the DB or the ability to generate
+    thumbnails on the fly)
+-   Let the Nuxt app get this code through an API
+-   Compile the HTML code into a Vue template
+-   Stitch up a Vue component on the fly
+-   Render that component inside the Nuxt app
+
+It comes with many small issues but most of them are resolved by proxying 100%
+of the Wagtail app through the Nuxt proxy. This way cookies and sessions can be
+consistent from page to page (as opposed to having the admin on a separate
+domain).
+
+### Light-weight front-end app
+
+If your front-end app doesn't need an API, it makes sense to generate it as a
+static Nuxt app. In that case you would use:
+
+-   Nuxt as a base
+-   Nuxt Content to manage potential content (blog posts, etc). Let's note that
+    to change the content you need to create Markdown files in the code. But
+    still, you get some API to filter, sort, render the content so that's fairly
+    convenient.
+-   SCSS as a style pre-processor
+
+Let's note here that this kind of app is best deployed on a static host like
+Netlify or straight out into a S3 bucket. This procedure is not standardized yet
+though.
+
+### Web app
+
+If you're doing a full web app, then it's pretty straightforward:
+
+-   Django for the base
+-   DRF for the API layer
+-   Nuxt and Vue to handle front-end code
+-   SCSS for the style pre-processor
+
 ## Approbation procedure
 
 Any tool you want to use can be considered. Even if it's not in the pre-approved
