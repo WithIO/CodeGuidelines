@@ -39,6 +39,7 @@ dependencies-management
 approved-stacks
 testing
 optimization
+eval
 ```
 
 ## Bonus material
