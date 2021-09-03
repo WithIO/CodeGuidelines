@@ -51,6 +51,7 @@ onboarding process.
 ```{toctree}
 :maxdepth: 2
 
+common-pitfalls
 nasa10
 bugs
 async-debounce
