@@ -135,7 +135,9 @@ Or if you want to base yourself off of another feature
     git flow feature start w43_some_feature_part_1 w42_some_feature
 
 Then Git Flow has automatic "feature finish" which will merge your feature branch 
-into develop (locally). The best still remains:
+into develop (locally), this is the simplest approach.
+
+However an alternative to "feature finish" is:
 
 1. Merge develop into your branch with
    `git fetch origin -p && git merge --no-ff --no-commit remotes/origin/develop`
