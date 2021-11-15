@@ -34,6 +34,7 @@ code-formatting
 documentation
 version-control
 build-lifecycle
+monthly-maintenance
 functional-thinking
 dependencies-management
 approved-stacks
