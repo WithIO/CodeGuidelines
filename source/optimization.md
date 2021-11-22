@@ -225,3 +225,38 @@ update the database with locking it as few as possible.
 
 This is the condition to meet if you want your application to be working
 concurrently on several processes and thus that it is able to scale it easily.
+
+### PostgreSQL optimizations
+
+You'll understand this from what was said above, it is recommended to handle as
+much data fetching and transformation with SQL. If you run a query and you see
+that Python CPU is 80% while PostgreSQL CPU is 20% then you probably need to
+offload a lot of the processing to PostgreSQL.
+
+This is because PostgreSQL has all the data it needs at hands and is able to
+process it much faster than Python would be. After all it's coded in C, while
+Python is still largely interpreted. And on top of that, all the data is on the
+server so it doesn't require to go through the network before being processed.
+
+In some cases however, a big SQL query can be slowing down the execution of a
+page. Worst, if the query is
+[too complex](https://en.wikipedia.org/wiki/Big_O_notation) it's possible that
+the performance looks fine at first but gradually becomes disastrous.
+
+Fortunately, there is a lot of buttons to push in PostgreSQL that help you reach
+the most optimal possible query execution. Some are obvious (indices on foreign
+keys that are being created automatically anyways) while some are not (the size
+of specific memory buffers, etc).
+
+To help you find that, DB engines in general and PostgreSQL specifically have a
+feature named
+[`EXPLAIN`](https://www.postgresql.org/docs/current/sql-explain.html). It will
+run the query and instead of giving you the results of that query it will give
+you the list of operations that have been done and the time spent on each of
+them.
+
+The output of this command is very dense and hard to read, however there is
+other tool that will help you in this task and give you advices.
+[PgMustard](https://www.pgmustard.com/) is one of such tools and it is highly
+recommended that you use to help understanding complex queries. We have a
+license, ask Rémy for it.

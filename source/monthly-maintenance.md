@@ -48,6 +48,57 @@ It is very important to keep frameworks and dependencies up-to-date. It might
 have to be sold to the client if it takes too much time, but we need at least to
 be aware of what is going on and what we need to do.
 
+## Performance
+
+All projects should have performance reporting enabled, in order to be able to
+execute the following procedure. If the performance monitoring is not enabled,
+please enable it so that you are able to work on it at the next occurrence of
+the monthly maintenance.
+
+### Absolute values
+
+We need to make sure that the website runs smoothly for all users. It means that
+95% of all HTTP requests to a specific endpoint should execute within 200ms.
+That's the "P95" column in the Sentry performance monitoring page.
+
+If you see endpoints that have a P95 over 200ms, it means that they need to be
+optimized. To do so, you need to dig a little bit into what this endpoint does.
+Then, it works a bit like the package updates:
+
+-   Either you see a quick win and you fix it immediately
+-   Either it's going to take too much time and you plan it with your project
+    manager
+
+```{note}
+Be careful, Sentry mixes up Celery tasks and HTTP requests. When you're looking
+be sure to ignore Celery tasks, which are intended for everything that cannot
+be cut down to 200ms.
+```
+
+### Trends
+
+For all the top requests of the page project, you need to have a look at their
+individual history and see if the execution time is rising. An increasing
+execution time can be the sign of an upcoming failure, by example with growing
+amounts of data.
+
+If something looks suspicious, you can start digging into the reason why the
+value is growing and then act accordingly as explained above.
+
+### Resolution
+
+Overall, there will be a few common ways to optimize your website:
+
+-   Optimizing the SQL queries and the use of the SQL engine in general (see the
+    {doc}`optimization guide<optimization>`)
+-   Make use of caching for pseudo-static content (Wagtail pages render, for
+    example)
+-   Move long-running endpoints to asynchronous tasks using Celery
+-   Use a Python profiler to figure what is taking time and could be accelerated
+
+As explained above, if the resolution is simple then fix it, otherwise let's
+plan it in advance.
+
 ## Documentation
 
 You can always use this occasion to write documentation on missing parts:
