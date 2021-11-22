@@ -56,4 +56,5 @@ common-pitfalls
 nasa10
 bugs
 async-debounce
+exceptions
 ```
