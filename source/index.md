@@ -40,6 +40,7 @@ dependencies-management
 approved-stacks
 testing
 optimization
+big-query-exports
 eval
 ```
 
