@@ -161,33 +161,10 @@ No CORS issue, no environment variables at build time. Of course there many
 [options](https://github.com/http-party/node-http-proxy#options) to the proxy
 module that you can modulate to fit your needs but this is the basic idea.
 
-#### Using GTM
+#### Django templates
 
-Project managers are always eager to add a lot of JavaScript into our pages and
-this generally starts with GTM. In a nutshell, GTM (or other tag managers like
-Matomo Tag Manager) are systems which allow to add tracking pixels and other
-analytical tools into the page without changing the code of the page itself.
-It's basically some JS code that will load as soon as the page is displayed and
-will do as instructed by the project managers from their management interface.
-
-To sum up, it's a good practice to include a tag manager into the project
-because it will increase the flexibility of the app to include different
-tracking tools without making changes to the code.
-
-Another item is that the code must be integrated exactly following Google's
-instructions (which are kind of not nice) because this helps proving the
-ownership of the website on other Google tools. If the guidelines from Google
-are not followed exactly, this breaks the authentication mechanism and it can
-become annoying.
-
-##### Django
-
-From a purely Django app, using something like GTM (or any of the
-marketing/tracking tools that we use) is usually fairly easy. You just have to
-include the code into the `base.html` of your project's template and then inject
-the `GTM_ID` into it.
-
-To do so:
+In order to get the value of an environment variable from a Django template, we
+just need a little setup:
 
 1. Create a `GTM_ID` environment variable
 2. Read this variable from `settings.py`, something like
@@ -201,7 +178,26 @@ It is much simpler to use a context processor than to manually inject the value
 each time you call `render()` to create a custom template tag.
 ```
 
-##### Wagtail
+#### Nuxt templateParams
+
+In some rare occasions it will be necessary to use an environment variable in a
+global template like `app.html`. An example for this would be the implementation
+of the GTM script there.
+
+In order to achieve that:
+1. Use the hook ``vue-renderer:ssr:templateParams`` to add a new property to ``templateParams`` in ``nuxt.config.js``.
+2. Access the value of the variable directly from the template like ``{{ NEW_VAR }}``.
+
+You can see an example of this in the [GTM implementation](gtm.md).
+
+```{note}
+Maybe you noticed that we could have done the same thing using the `head`
+section of `nuxt.config.js` but for some reason we're doing this complicated
+maneuver. It's simple: the `head` is evaluated at build time and cannot take
+environment variables into account. Sad but true.
+```
+
+#### Wagtail
 
 In some cases, users are going to expect more configurability over what they can
 put in the HTML. In those cases, instead of reading the values from environment
@@ -212,41 +208,6 @@ You can for example create the `raw_html_head` and `raw_html_body` fields which
 you let the admin change from the Promote tab of the root page and then in the
 template you fetch those values from DB.
 
-##### Nuxt
-
-That's not the simplest thing to do. There is an example in the TFS project so
-I'll make links from here.
-
-1. Create a plugin that will manage the JS you want to include. By example the
-   [GTM](https://gitlab.com/with-madrid/tfs/front/-/blob/37858c749525c75f40f6d0ca710b6254cf19be5c/plugins/gtm.ts)
-   plugin from TFS declares the `dataLayer` variable and sends an event to it
-   every time there is a new page displayed (because GTM doesn't understand
-   HTML5 routing)
-2. List that plugin into `nuxt.config.js`
-3. Hook up to `vue-renderer:ssr:templateParams`
-   [to inject](https://gitlab.com/with-madrid/tfs/front/-/blob/37858c749525c75f40f6d0ca710b6254cf19be5c/nuxt.config.js#L151)
-   the parameters you need
-4. Modify/create `app.html`
-   [to include the snippets](https://gitlab.com/with-madrid/tfs/front/-/blob/37858c749525c75f40f6d0ca710b6254cf19be5c/app.html)
-   provided by GTM and inject there the value received thanks to the
-   `vue-renderer:ssr:templateParams` hook
-
-```{note}
-Maybe you noticed that we could have done the same thing using the `head`
-section of `nuxt.config.js` but for some reason we're doing this complicated
-maneuver. It's simple: the `head` is evaluated at build time and cannot take
-environment variables into account. Sad but true.
-```
-
-```{note}
-You'll also realize that there is a `@nuxt-gtm` module which we don't use. The
-reasons are the same: it is simply too annoying to give it runtime config. The
-TFS implementation is simple enough on top of complying with Google's
-requirements, we don't need to use that module.
-```
-
-This is of course fairly artisanal and will have to be adapted to the specific
-needs of your project, but that can serve as a blueprint.
 
 #### Getting a token to the front-end
 
